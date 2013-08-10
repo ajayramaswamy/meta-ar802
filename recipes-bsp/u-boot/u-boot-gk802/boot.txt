@@ -1,0 +1,9 @@
+echo ======== Setting bootargs ========
+env set bootargs 'console=ttymxc3,115200 fixrtc rootwait noinitrd ' 
+env set bootargs ${bootargs} 'root=/dev/mmcblk1p1 rootfstype=ext4 vmalloc=192M fbmem=28M '
+env set bootargs ${bootargs} 'video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24 '
+echo ======== Loading kernel ==========
+env set uimage 'uImage'
+env set bootdev 'mmc 1:1'
+load ${bootdev} ${loadaddr} ${uimage}
+bootm ${loadaddr}
