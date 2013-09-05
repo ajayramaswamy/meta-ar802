@@ -1,13 +1,20 @@
 LICENSE = "MIT"
 inherit core-image
 
-IMAGE_FEATURES += "package-management \
+EXTRA_IMAGE_FEATURES += " \
+	package-management \
 	ssh-server-openssh \
+	splash \
+	hwcodecs \
 	x11-base debug-tweaks \
 	nfs-server \
-	"
+    	tools-debug \
+    	tools-profile \
+	tools-testapps \
+    	qt4-pkgs \
+"
 
-DISTRO_FEATURES += "pulseaudio"
+DISTRO_FEATURES += "pulseaudio pam "
 WEB = "web-webkit"
 
 LICENSE_FLAGS_WHITELIST = "commercial" 
@@ -24,18 +31,42 @@ COMMERCIAL_VIDEO_PLUGINS ?= " \
 " 
 
 CORE_IMAGE_EXTRA_INSTALL += " \ 
+	packagegroup-core-basic \
+	packagegroup-core-lsb \
 	packagegroup-fsl-gstreamer \ 
 	gst-plugins-base-videotestsrc \ 
 	gst-plugins-bad-fbdevsink \ 
-	gst-ffmpeg alsa-utils \ 
+	gst-ffmpeg \
+	alsa-utils \ 
 	gst-plugins-good-isomp4 \ 
 	packagegroup-fsl-gstreamer \
 	packagegroup-fsl-tools-testapps \
 	packagegroup-fsl-tools-benchmark \
+    	packagegroup-qt-in-use-demos \
+    	qt4-plugin-phonon-backend-gstreamer \
+    	qt4-demos \
+    	qt4-examples \
 	fsl-gui-extrafiles \
 	cpufrequtils \
 	nano \
+	vim \
 	u-boot-mkimage \
+	packagegroup-fonts-truetype \
+	packagegroup-core-buildessential \
+	packagegroup-core-tools-testapps \
+	mplayer2 \
+	rfkill \
+	rtorrent \
+	samba \
+	screen \
+	apache2 \
+	modphp \
+	php \
+	bigbuckbunny-480p \
+	bigbuckbunny-720p \
+	bigbuckbunny-1080p \
+	autofs \
+	vsftpd \
 " 
 
 IMAGE_LINGUAS = " "
@@ -48,3 +79,5 @@ copy_uimage_and_bootscript() {
 }
 
 ROOTFS_POSTPROCESS_COMMAND += "copy_uimage_and_bootscript ; "
+
+export IMAGE_BASENAME = "ar802-image"
