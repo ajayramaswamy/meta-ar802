@@ -76,6 +76,12 @@ copy_uimage_and_bootscript() {
 	install -m 0644 "${FILE_DIRNAME}/boot/boot.txt" "${IMAGE_ROOTFS}/boot/boot.txt"
 	install -m 0755 "${FILE_DIRNAME}/boot/t2s.sh" "${IMAGE_ROOTFS}/boot/t2s.sh"
 	mkimage -A arm -O linux -T script -C none -a 0 -e 0 -n 'Boot setup script for SD' -d "${IMAGE_ROOTFS}/boot/boot.txt" "${IMAGE_ROOTFS}/boot/boot.scr"
+	mkdir -p "${IMAGE_ROOTFS}/etc/modprobe.d"
+	install -m 0644 "${FILE_DIRNAME}/extra_files/rfkill.conf" "${IMAGE_ROOTFS}/etc/modprobe.d/rfkill.conf"
+	mkdir -p "${IMAGE_ROOTFS}/home/root"
+	install -m 0755 "${FILE_DIRNAME}/extra_files/cpustats" "${IMAGE_ROOTFS}/home/root/cpustats"
+	install -m 0755 "${FILE_DIRNAME}/extra_files/gov_perf" "${IMAGE_ROOTFS}/home/root/gov_perf"
+	install -m 0755 "${FILE_DIRNAME}/extra_files/gov_ondemand" "${IMAGE_ROOTFS}/home/root/gov_ondemand"
 }
 
 ROOTFS_POSTPROCESS_COMMAND += "copy_uimage_and_bootscript ; "
